@@ -2,11 +2,36 @@
 
 require('dotenv').config();
 const { app, BrowserWindow } = require('electron');
+const { Client: TPLinkClient } = require('tplink-smarthome-api');
+
+// Smart Plug
+(async () => {
+  const tpclient = new TPLinkClient();
+  const host = process.env.PLUG_HOST;
+  const device = await tpclient.getDevice({ 
+    host,
+    childId: process.env.PLUG_RIGHT,
+  });
+  // device.getSysInfo().then(console.log);
+  let bool = device.state === 1;
+  exports.onSmartPlugClick = () => {
+    device.setPowerState(!bool);
+    bool = !bool;
+    console.log(`turned ${bool}`);    
+  };    
+})();
+
+
+
+// Bulbs
 const lifx = require('lifx-http-api');
 const client = new lifx({
   bearerToken: process.env.BEARER_TOKEN,
 });
 
+// client
+//   .listLights('all')
+//   .then((lights) => console.log(lights));
 
 const createWindow = () =>  {
   // Create the browser window.
@@ -22,25 +47,41 @@ const createWindow = () =>  {
   win.loadFile('index.html')
 }
 
-exports.onClick = () => {
-  client
-  .listLights('all')
-  .then((lights) => {
-    // console.log(lights[0]);
-    client.setState('all', {
-      // color: 'kelvin:2700',
-      color: 'kelvin:2700',
-      brightness: .5,
-    })
-      .then((message) => {
-        console.log(message)
-      }, (e) => {
-        console.log(e)
-      });
-
-  }, (e) => {
-    console.error(e);
+// 'label:Office 2'
+// 'all'
+const selector = process.env.LIFX_SELECTOR_ALL;
+exports.onBrightnessChange = value => {
+  client.setState(selector, {
+    brightness: value / 100,
   });
 };
+
+exports.onKelvinChange = value => {
+  console.log(`kelvin: ${value}`);
+  client.setState(selector, {
+    color: `kelvin:${value}`,
+  });
+};
+
+
+// exports.onClick = () => {
+//   client
+//   .listLights('all')
+//   .then((lights) => {
+//     console.log(lights[0]);
+//     client.setState('all', {
+//       // color: 'kelvin:2700',
+//       brightness: .5,
+//     })
+//       .then((message) => {
+//         console.log(message)
+//       }, (e) => {
+//         console.log(e)
+//       });
+
+//   }, (e) => {
+//     console.error(e);
+//   });
+// };
 
 app.on('ready', createWindow)

@@ -11,7 +11,11 @@
     We are using node <script>document.write(process.versions.node)</script>,
     Chrome <script>document.write(process.versions.chrome)</script>,
     and Electron <script>document.write(process.versions.electron)</script>.
-    <button id="foo">foo me</button>
+    <form method="get">
+      Brightness: <input id="brightness" type="range" min="1" max="100" step="1">
+      Kelvin: <input id="kelvin" type="range" min="1500" max="9000" step="1">
+      Smart Plug: <button id="smartplug" type="button">Toggle Power</button>
+    </form>
     <script src="app.js"></script>
   </body>
 </html>
