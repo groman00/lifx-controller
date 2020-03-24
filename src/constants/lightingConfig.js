@@ -17,12 +17,13 @@ export default {
     //     'a', 'b', 'c',
     //   ]      
     // },
-    // hallway1: {
-    //   title: 'Hallway 1',
-    //   lights: [
-    //     'a', 'b', 'c',
-    //   ]      
-    // },
+    hallway: {
+      title: 'Hallway',
+      lights: {
+        1: 'id:d073d5389c77',
+        2: 'id:d073d538a8ef'
+      }     
+    },
     // hallway2: {
     //   title: 'Hallway 2',
     //   lights: [

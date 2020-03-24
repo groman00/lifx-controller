@@ -5,20 +5,26 @@ const {
   onSmartPlugClick,
 } = remote.require('./main.js');
 
-// document
-//   .querySelector('#foo')
-//   .addEventListener('click', e => {
-//     mainProcess.onClick();
-//   });
+window.ElectronMethods = {
+  onBrightnessChange, 
+  onKelvinChange,
+  onSmartPlugClick,
+};
 
-const brightness = document.querySelector('#brightness');
-// brightness.addEventListener('input', e => console.log(e.target.value))
-brightness.addEventListener('change', e => onBrightnessChange(e.target.value));
+// // document
+// //   .querySelector('#foo')
+// //   .addEventListener('click', e => {
+// //     mainProcess.onClick();
+// //   });
+
+// const brightness = document.querySelector('#brightness');
+// // brightness.addEventListener('input', e => console.log(e.target.value))
+// brightness.addEventListener('change', e => onBrightnessChange(e.target.value));
 
 
-const kelvin = document.querySelector('#kelvin');
-// kelvin.addEventListener('input', e => console.log(e.target.value))
-kelvin.addEventListener('change', e => onKelvinChange(e.target.value));
+// const kelvin = document.querySelector('#kelvin');
+// // kelvin.addEventListener('input', e => console.log(e.target.value))
+// kelvin.addEventListener('change', e => onKelvinChange(e.target.value));
 
-const smartplug = document.querySelector('#smartplug');
-smartplug.addEventListener('click', e => onSmartPlugClick());
+// const smartplug = document.querySelector('#smartplug');
+// smartplug.addEventListener('click', e => onSmartPlugClick());

@@ -2,24 +2,24 @@
 
 require('dotenv').config();
 const { app, BrowserWindow } = require('electron');
-const { Client: TPLinkClient } = require('tplink-smarthome-api');
+// const { Client: TPLinkClient } = require('tplink-smarthome-api');
 
 // Smart Plug
-(async () => {
-  const tpclient = new TPLinkClient();
-  const host = process.env.PLUG_HOST;
-  const device = await tpclient.getDevice({ 
-    host,
-    childId: process.env.PLUG_RIGHT,
-  });
-  // device.getSysInfo().then(console.log);
-  let bool = device.state === 1;
-  exports.onSmartPlugClick = () => {
-    device.setPowerState(!bool);
-    bool = !bool;
-    console.log(`turned ${bool}`);    
-  };    
-})();
+// (async () => {
+//   const tpclient = new TPLinkClient();
+//   const host = process.env.PLUG_HOST;
+//   const device = await tpclient.getDevice({ 
+//     host,
+//     childId: process.env.PLUG_RIGHT,
+//   });
+//   // device.getSysInfo().then(console.log);
+//   let bool = device.state === 1;
+//   exports.onSmartPlugClick = () => {
+//     device.setPowerState(!bool);
+//     bool = !bool;
+//     console.log(`turned ${bool}`);    
+//   };    
+// })();
 
 
 
@@ -44,24 +44,26 @@ const createWindow = () =>  {
   })
 
   // and load the index.html of the app.
+  // win.loadFile('index.html')
   win.loadFile('index.html')
 }
 
 // 'label:Office 2'
 // 'all'
-const selector = process.env.LIFX_SELECTOR_ALL;
-exports.onBrightnessChange = value => {
+// const selector = process.env.LIFX_SELECTOR_ALL;
+exports.onBrightnessChange = (selector, value) => {
+  console.log(selector, value);
   client.setState(selector, {
     brightness: value / 100,
-  });
+  }).then(console.log, console.error);
 };
 
-exports.onKelvinChange = value => {
-  console.log(`kelvin: ${value}`);
-  client.setState(selector, {
-    color: `kelvin:${value}`,
-  });
-};
+// exports.onKelvinChange = value => {
+//   console.log(`kelvin: ${value}`);
+//   client.setState(selector, {
+//     color: `kelvin:${value}`,
+//   });
+// };
 
 
 // exports.onClick = () => {

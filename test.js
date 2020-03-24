@@ -8,7 +8,8 @@ const client = new lifx({
 });
 
 client
-  .listLights('id:d073d5389a44,id:d073d538a85c')
+  // .listLights('id:d073d5389a44,id:d073d538a85c')
+  .listLights('all')
   .then((lights) => {
     console.log(lights);
   });
