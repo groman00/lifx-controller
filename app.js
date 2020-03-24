@@ -5,7 +5,7 @@ const {
   onSmartPlugClick,
 } = remote.require('./main.js');
 
-window.ElectronMethods = {
+window.LIFX_EVENTS = {
   onBrightnessChange, 
   onKelvinChange,
   onSmartPlugClick,

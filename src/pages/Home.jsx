@@ -1,13 +1,13 @@
 import React from 'react';
-import lightingConfig from '../constants/lightingConfig';
-import AppBar from '../components/AppBar';
+import lightingConfig from '../config/lighting'; // TODO: Move to context
+import Navigation from '../components/Navigation';
 import LightingCard from '../components/LightingCard';
 
 const Home = () => {
   const { lightings } = lightingConfig;
   return ( 
     <div>
-      <AppBar title="LIFX Lights" />
+      <Navigation title="LIFX Lights" />
       <div>
         {
           Object.keys(lightings).map(key => 

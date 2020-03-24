@@ -1,38 +1,24 @@
 import React from 'react';
-import Slider from '@material-ui/core/Slider';
-import AppBar from '../components/AppBar';
-import lightingConfig from '../constants/lightingConfig';
+import lightingConfig from '../config/lighting'; // TODO: Move to context
+import Navigation from '../components/Navigation';
+import BrightnessSlider from '../components/BrightnessSlider';
 
 const Detail = (props) => {
   const { group, light } = props.match.params;
   const config = lightingConfig.lightings[group];
   const title = `${config.title} ${light || 'Group'}`;
   let selector;
-  console.log(group, light, config);
   if (light) {
     selector = config.lights[light];
   } else {
     selector = Object.keys(config.lights).map(key => config.lights[key]).join(',');
   }
-  const onChange = (e, value) => {
-    window.ElectronMethods.onBrightnessChange(selector, value);
-  };
+  console.log(group, light, config, selector);  
   return (
     <div>
-      <AppBar title={title} />
+      <Navigation title={title} />
       <div>
-        {/* <button onClick={onChange}>Update</button>   */}
-        {selector}        
-        <Slider
-          onChangeCommitted={onChange}
-          defaultValue={50}
-          valueLabelDisplay="auto"
-          step={1}
-          marks
-          min={1}
-          max={100}
-        />     
-        {/* <button>Preview</button> */}
+        <BrightnessSlider selector={selector} />   
         <button>Done</button>   
       </div>
     </div>
