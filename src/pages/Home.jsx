@@ -1,12 +1,12 @@
 import React from 'react';
-import lightingConfig from '../config/lighting'; // TODO: Move to context
+import { withAppContext } from '../components/HOCS';
 import Navigation from '../components/Navigation';
 import LightingCard from '../components/LightingCard';
 
-const Home = () => {
-  const { lightings } = lightingConfig;
+const Home = ({ context }) => {
+  const { lightings } = context;
   return ( 
-    <div>
+    <>
       <Navigation title="LIFX Lights" />
       <div>
         {
@@ -15,8 +15,8 @@ const Home = () => {
           )
         }
       </div>
-    </div>
+    </>
   );
 }
 
-export default Home;
+export default withAppContext(Home);

@@ -1,11 +1,11 @@
 import React from 'react';
-import lightingConfig from '../config/lighting'; // TODO: Move to context
+import { withAppContext } from '../components/HOCS';
 import Navigation from '../components/Navigation';
 import BrightnessSlider from '../components/BrightnessSlider';
 
-const Detail = (props) => {
-  const { group, light } = props.match.params;
-  const config = lightingConfig.lightings[group];
+const Detail = ({ context, match }) => {
+  const { group, light } = match.params;
+  const config = context.lightings[group];
   const title = `${config.title} ${light || 'Group'}`;
   let selector;
   if (light) {
@@ -16,7 +16,7 @@ const Detail = (props) => {
   console.log(group, light, config, selector);  
   return (
     <div>
-      <Navigation title={title} />
+      <Navigation title={title} backRoute="/"/>
       <div>
         <BrightnessSlider selector={selector} />   
         <button>Done</button>   
@@ -25,4 +25,4 @@ const Detail = (props) => {
   );
 };
 
-export default Detail;
+export default withAppContext(Detail);
