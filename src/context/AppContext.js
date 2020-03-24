@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import lightings from '../config/lighting'; // TODO: Move to context
 import lifxEvents from '../lib/lifxEvents';
 
 const Context = React.createContext({});
@@ -7,6 +8,7 @@ export class AppProvider extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      lightings,
       ...lifxEvents
     };
   }
