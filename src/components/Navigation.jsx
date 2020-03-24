@@ -1,14 +1,18 @@
 import React from 'react';
 import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
-// import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
 
-export default ({ title }) => (
+const Navigation = ({ title }) => (
   <AppBar position="static">
     <Toolbar>
-      {/*       
-      <IconButton edge="start"color="inherit" aria-label="back">
+      {/* 
+      <IconButton 
+        edge="start"
+        color="inherit" 
+        aria-label="back"
+      >
         <ChevronLeft />
-      </IconButton>        
+      </IconButton>         
       */}
       <Typography variant="h6">
         {title}
@@ -16,3 +20,5 @@ export default ({ title }) => (
     </Toolbar>
   </AppBar>
 );
+
+export default Navigation;

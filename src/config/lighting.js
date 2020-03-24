@@ -11,12 +11,13 @@ export default {
         2: 'id:d073d5389a44'
       }     
     },    
-    // office: {
-    //   title: 'Office',
-    //   lights: [
-    //     'a', 'b', 'c',
-    //   ]      
-    // },
+    office: {
+      title: 'Office',
+      lights: {
+        1: 'id:d073d5502a35',
+        2: 'id:d073d5503321'
+      }
+    },
     hallway: {
       title: 'Hallway',
       lights: {
