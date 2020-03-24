@@ -13,7 +13,7 @@ const LightingCard = ({ group, lighting }) => {
     <Card>
       <CardActionArea
         component={RouterLink} 
-        to={`/detail/${group}`}
+        to={`/group/${group}`}
       >
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
@@ -29,7 +29,7 @@ const LightingCard = ({ group, lighting }) => {
               size="small" 
               color="primary"
               component={RouterLink} 
-              to={`/detail/${group}/${key}`}
+              to={`/group/${group}/${key}`}
             >
               {title} {key}
             </Button>          

@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import Home from './pages/Home';
-import Detail from './pages/Detail';
+import Group from './pages/Group';
 
 const App = () => (
   <AppProvider>
@@ -14,8 +14,8 @@ const App = () => (
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/detail/:group" component={Detail} />
-          <Route path="/detail/:group/:light" component={Detail} />
+          <Route exact path="/group/:group" component={Group} />
+          <Route path="/group/:group/:light" component={Group} />
         </Switch>  
       </Router>    
     </div>

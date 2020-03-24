@@ -1,41 +1,109 @@
-/* [name]
+import React, { useState } from 'react';
+import { 
+  Grid, 
+  Slider, 
+  Card, 
+  CardContent, 
+  Typography 
+} from '@material-ui/core';
+import { withAppContext } from './HOCS';
 
-white, red, orange, yellow, cyan, green, blue, purple, or pink
+const ColorPanel = ({ context, selector }) => {
+  const [hue, setHue] = useState(180);
+  const [saturation, setSaturation] = useState(.5);
+  const [brightness, setBrightness] = useState(.5);
+  const [kelvin, setKelvin] = useState(2700);
+  const slidersChanged = () => {
+    context.onColorChange(selector, `hue:${hue} saturation:${saturation} brightness:${brightness} kelvin:${kelvin}`);
+  };
+  return (
+    <>
+      <Grid 
+        container
+        spacing={1}
+        direction="column"
+      >
+        <Grid item>
+          <Card>
+            <CardContent>
+              <Typography gutterBottom>
+                Brightness
+              </Typography>
+              <Slider
+                onChangeCommitted={slidersChanged}
+                onChange={(e, value) => setBrightness(value)}
+                value={brightness}
+                valueLabelDisplay="auto"
+                step={.01}
+                marks
+                min={0}
+                max={1}
+              />               
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item>
+          <Card>
+            <CardContent>
+              <Typography gutterBottom>
+                Kelvin
+              </Typography>
+              <Slider
+                onChangeCommitted={slidersChanged}
+                onChange={(e, value) => setKelvin(value)}
+                value={kelvin}
+                valueLabelDisplay="auto"
+                step={100}
+                marks
+                min={1500}
+                max={9000}
+              />               
+            </CardContent>
+          </Card>
+        </Grid>     
+        <Grid item>
+          <Card>
+            <CardContent>
+              <Typography gutterBottom>
+                Hue
+              </Typography>
+              <Slider
+                disabled
+                onChangeCommitted={slidersChanged}
+                onChange={(e, value) => setHue(value)}
+                value={hue}
+                valueLabelDisplay="auto"
+                step={1}
+                marks
+                min={0}
+                max={360}
+              />               
+            </CardContent>
+          </Card>          
+        </Grid>
+        <Grid item>
+          <Card>
+            <CardContent>
+              <Typography gutterBottom>
+                Saturation
+              </Typography>
+              <Slider
+                disabled
+                onChangeCommitted={slidersChanged}
+                onChange={(e, value) => setSaturation(value)}
+                value={saturation}
+                valueLabelDisplay="auto"
+                step={.01}
+                marks
+                min={0}
+                max={1}
+              />               
+            </CardContent>
+          </Card>
+        </Grid>           
+      </Grid>    
+    </>
+  );
+};
 
-Sets the hue and saturation components, but leaves brightness untouched.
-
-hue:[0-360]
-
-hue:120
-
-Sets hue without affecting other components
-
-saturation:[0.0-1.0]
-
-saturation:0.5
-
-Sets saturation without affecting other components
-
-brightness:[0.0-1.0]
-
-brightness:0.5
-
-Sets brightness without affecting other components
-
-kelvin:[1500-9000]
-
-kelvin:5000
-
-Sets kelvin to the given value and saturation to 0.0. Other components are not affected.
-
-#RRGGBB
-
-#ff0000
-
-Automatically converts to HSBK
-
-rgb:[0-255],[0-255],[0-255]
-
-rgb:255,255,0
-
-Automatically converts to HSBK */
+export default withAppContext(ColorPanel);
