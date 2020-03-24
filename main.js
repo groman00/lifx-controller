@@ -51,11 +51,23 @@ const createWindow = () =>  {
 // 'label:Office 2'
 // 'all'
 // const selector = process.env.LIFX_SELECTOR_ALL;
+/* Do we need this? */
 exports.onBrightnessChange = (selector, value) => {
   console.log(selector, value);
   client.setState(selector, {
     brightness: value / 100,
   }).then(console.log, console.error);
+};
+
+exports.onColorChange = (selector, color) => {
+  console.log(selector, color);
+  client
+    .setState(selector, {
+      color,
+      power: 'on',
+    })
+    // Debug
+    // .then(console.log, console.error);
 };
 
 // exports.onKelvinChange = value => {

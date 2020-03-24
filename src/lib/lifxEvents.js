@@ -1,6 +1,7 @@
 const lifxEventsAll = {
   development: {
-    onBrightnessChange: console.log
+    onBrightnessChange: console.log,
+    onColorChange: console.log
   },
   production: {
     ...window.LIFX_EVENTS
