@@ -1,8 +1,11 @@
 /* https://github.com/klarstil/lifx-http-api */
 
-require('dotenv').config();
+require('dotenv').config({ path: __dirname + '/env/.env' });
+
 const { app, BrowserWindow } = require('electron');
 // const { Client: TPLinkClient } = require('tplink-smarthome-api');
+
+console.log(process.env.BEARER_TOKEN);
 
 // Smart Plug
 // (async () => {
