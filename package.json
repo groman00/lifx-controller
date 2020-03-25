@@ -1,7 +1,7 @@
 {
   "name": "lifx-controller",
   "version": "1.0.0",
-  "description": "",
+  "description": "Control light bulbs in my house",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,9 +9,11 @@
     "react-start": "react-scripts start",
     "react-build": "node ./scripts/build-non-split.js",
     "react-test": "react-scripts test",
-    "react-eject": "react-scripts eject"
+    "react-eject": "react-scripts eject",
+    "pack": "electron-builder --dir",
+    "dist": "npm run react-build && electron-builder"    
   },
-  "author": "",
+  "author": "groman00",
   "license": "ISC",
   "dependencies": {
     "@material-ui/core": "^4.9.7",
@@ -26,7 +28,8 @@
     "tplink-smarthome-api": "^1.3.0"
   },
   "devDependencies": {
-    "electron": "^6.0.12"
+    "electron": "^6.0.12",
+    "electron-builder": "^22.4.1"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -42,5 +45,21 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "build": {
+    "extends": null,
+    "appId": "com.example.lifx-controller",
+    "mac": {
+      "category": "public.app-category.developer-tools"
+    },
+    "files": [
+      "index.html",
+      "main.js",
+      "app.js",
+      "build/",
+      "env/",
+      "node_modules/",
+      "!node_modules/.cache/"
+    ]    
+  }  
 }
