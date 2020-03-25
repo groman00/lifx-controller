@@ -8,8 +8,8 @@ const Detail = ({ context, match }) => {
   const config = context.lightings[group];
   const title = `${config.title} ${light || 'Group'}`;
   let selector;
-  if (group === 'all') {
-    selector = 'all';
+  if (!group.lights) {
+    selector = config.selector;
   } else if (light) {
     selector = config.lights[light];
   } else {
@@ -19,7 +19,7 @@ const Detail = ({ context, match }) => {
     <div>
       <Navigation title={title} backRoute="/"/>
       <div>
-        <ColorPanel selector={selector} />
+        <ColorPanel selector={selector} fullColor={group === 'color'}/>
       </div>
     </div>
   );

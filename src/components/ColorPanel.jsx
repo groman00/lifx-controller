@@ -8,9 +8,9 @@ import {
 } from '@material-ui/core';
 import { withAppContext } from './HOCS';
 
-const ColorPanel = ({ context, selector }) => {
-  const [hue, setHue] = useState(180);
-  const [saturation, setSaturation] = useState(.5);
+const ColorPanel = ({ context, selector, fullColor }) => {
+  const [hue, setHue] = useState(0);
+  const [saturation, setSaturation] = useState(0);
   const [brightness, setBrightness] = useState(.5);
   const [kelvin, setKelvin] = useState(2700);
   const slidersChanged = () => {
@@ -68,7 +68,7 @@ const ColorPanel = ({ context, selector }) => {
                 Hue
               </Typography>
               <Slider
-                disabled
+                disabled={!fullColor}
                 onChangeCommitted={slidersChanged}
                 onChange={(e, value) => setHue(value)}
                 value={hue}
@@ -88,7 +88,7 @@ const ColorPanel = ({ context, selector }) => {
                 Saturation
               </Typography>
               <Slider
-                disabled
+                disabled={!fullColor}
                 onChangeCommitted={slidersChanged}
                 onChange={(e, value) => setSaturation(value)}
                 value={saturation}
