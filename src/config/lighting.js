@@ -3,6 +3,10 @@ export default {
     title: 'All Lights',
     selector: 'all',
   },
+  color: {
+    title: 'Mr Fun Bulb',
+    selector: 'id:d073d51473ca',
+  },  
   bedroom: {
     title: 'Bedroom',
     lights: {
