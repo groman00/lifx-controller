@@ -1,12 +1,12 @@
 const { remote } = require('electron');
 const { 
-  onBrightnessChange, 
-  onColorChange,
-  onSmartPlugClick,
+  getColorState,
+  setColorState,
+  // onSmartPlugClick,
 } = remote.require('./main.js');
 
 window.LIFX_EVENTS = {
-  onBrightnessChange, 
-  onColorChange,
-  onSmartPlugClick,
+  getColorState,
+  setColorState
+  // onSmartPlugClick,
 };

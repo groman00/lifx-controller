@@ -43,7 +43,7 @@ const createWindow = () =>  {
   win.loadFile('index.html')
 }
 
-exports.onColorChange = (selector, color) => {
+exports.setColorState = (selector, color) => {
   console.log(selector, color);
   client
     .setState(selector, {
@@ -53,5 +53,7 @@ exports.onColorChange = (selector, color) => {
     // Debug
     // .then(console.log, console.error);
 };
+
+exports.getColorState = selector => client.listLights(selector);
 
 app.on('ready', createWindow)
