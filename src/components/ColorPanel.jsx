@@ -6,15 +6,28 @@ import {
   CardContent, 
   Typography 
 } from '@material-ui/core';
-import { withAppContext } from './HOCS';
+import lifxEvents from '../lib/lifxEvents';
 
-const ColorPanel = ({ context, selector, fullColor }) => {
-  const [hue, setHue] = useState(0);
-  const [saturation, setSaturation] = useState(0);
-  const [brightness, setBrightness] = useState(.5);
-  const [kelvin, setKelvin] = useState(2700);
+const defaultState = {
+  brightness: .5,
+  color: {
+    hue: 0,
+    saturation: 0,
+    kelvin: 2700,    
+  },
+}
+
+const ColorPanel = ({ initialState, selector, fullColor }) => {
+  const initial = {
+    ...defaultState,
+    ...initialState
+  };
+  const [hue, setHue] = useState(initial.color.hue);
+  const [saturation, setSaturation] = useState(initial.color.saturation);
+  const [brightness, setBrightness] = useState(initial.brightness);
+  const [kelvin, setKelvin] = useState(initial.color.kelvin);
   const slidersChanged = () => {
-    context.onColorChange(selector, `hue:${hue} saturation:${saturation} brightness:${brightness} kelvin:${kelvin}`);
+    lifxEvents.setColorState(selector, `hue:${hue} saturation:${saturation} brightness:${brightness} kelvin:${kelvin}`);
   };
   return (
     <>
@@ -106,4 +119,4 @@ const ColorPanel = ({ context, selector, fullColor }) => {
   );
 };
 
-export default withAppContext(ColorPanel);
+export default ColorPanel;
