@@ -3,4 +3,4 @@ build
 env/.env
 dist
 .DS_Store
-src/config/lighting
+src/config/lighting.js
