@@ -11,7 +11,7 @@
     "react-test": "react-scripts test",
     "react-eject": "react-scripts eject",
     "pack": "electron-builder --dir",
-    "dist": "npm run react-build && electron-builder --mac --windows"    
+    "dist": "npm run react-build && electron-builder --mac --windows"
   },
   "author": "groman00",
   "license": "ISC",
@@ -63,6 +63,6 @@
       "env/",
       "node_modules/",
       "!node_modules/.cache/"
-    ]    
-  }  
+    ]
+  }
 }
