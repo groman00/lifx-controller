@@ -6,7 +6,7 @@ import {
   CardContent, 
   Typography 
 } from '@material-ui/core';
-import lifxEvents from '../lib/lifxEvents';
+import { setColorState, toColorState } from '../lib/utils';
 
 const defaultState = {
   brightness: .5,
@@ -27,7 +27,7 @@ const ColorPanel = ({ initialState, selector, fullColor }) => {
   const [brightness, setBrightness] = useState(initial.brightness);
   const [kelvin, setKelvin] = useState(initial.color.kelvin);
   const slidersChanged = () => {
-    lifxEvents.setColorState(selector, `hue:${hue} saturation:${saturation} brightness:${brightness} kelvin:${kelvin}`);
+    setColorState(selector, toColorState(hue, saturation, brightness, kelvin));
   };
   return (
     <>

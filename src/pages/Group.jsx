@@ -25,7 +25,7 @@ const Detail = ({ context, match }) => {
         Object.keys(config.lights).map(key => config.lights[key]).join(',')
       );
     }
-  }, [config]);  
+  }, [config, light]);  
   
   // Get intial color state
   useEffect(() => {
