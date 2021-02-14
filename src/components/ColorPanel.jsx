@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Grid, 
-  Slider, 
   Card, 
   CardContent, 
   Typography 
 } from '@material-ui/core';
 import { setColorState, toColorState } from '../lib/utils';
+import { Donut } from 'react-dial-knob'
 
 const defaultState = {
   brightness: .5,
@@ -17,18 +17,43 @@ const defaultState = {
   },
 }
 
+const toDonut = (min, max, step, value, setValue, label) => (
+  <Donut
+    diameter={100}
+    min={min}
+    max={max}
+    step={step}
+    value={value}
+    theme={{
+      donutColor: 'blue'
+    }}
+    onValueChange={setValue}
+    ariaLabelledBy={label}
+  >
+    <label id={label}>{label}</label>
+  </Donut>  
+);
+
 const ColorPanel = ({ initialState, selector, fullColor }) => {
   const initial = {
     ...defaultState,
     ...initialState
   };
   const [hue, setHue] = useState(initial.color.hue);
-  const [saturation, setSaturation] = useState(initial.color.saturation);
-  const [brightness, setBrightness] = useState(initial.brightness);
+  const [saturation, setSaturation] = useState(Math.round(initial.color.saturation * 100));
+  const [brightness, setBrightness] = useState(Math.round(initial.brightness * 100));
   const [kelvin, setKelvin] = useState(initial.color.kelvin);
-  const slidersChanged = () => {
-    setColorState(selector, toColorState(hue, saturation, brightness, kelvin));
-  };
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setColorState(selector, toColorState(hue, saturation / 100, brightness / 100, kelvin));
+    }, 300);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [selector, hue, brightness, kelvin, saturation]);  
+
   return (
     <>
       <Grid 
@@ -39,81 +64,35 @@ const ColorPanel = ({ initialState, selector, fullColor }) => {
         <Grid item>
           <Card>
             <CardContent>
-              <Typography gutterBottom>
-                Brightness
-              </Typography>
-              <Slider
-                onChangeCommitted={slidersChanged}
-                onChange={(e, value) => setBrightness(value)}
-                value={brightness}
-                valueLabelDisplay="auto"
-                step={.01}
-                marks
-                min={0}
-                max={1}
-              />               
+              { toDonut(0, 100, 1, brightness, setBrightness, 'Brightness') }
             </CardContent>
           </Card>
         </Grid>
         <Grid item>
           <Card>
             <CardContent>
-              <Typography gutterBottom>
-                Kelvin
-              </Typography>
-              <Slider
-                onChangeCommitted={slidersChanged}
-                onChange={(e, value) => setKelvin(value)}
-                value={kelvin}
-                valueLabelDisplay="auto"
-                step={100}
-                marks
-                min={1500}
-                max={9000}
-              />               
+              { toDonut(1500, 9000, 100, kelvin, setKelvin, 'Kelvin') }                        
             </CardContent>
           </Card>
-        </Grid>     
-        <Grid item>
-          <Card>
-            <CardContent>
-              <Typography gutterBottom>
-                Hue
-              </Typography>
-              <Slider
-                disabled={!fullColor}
-                onChangeCommitted={slidersChanged}
-                onChange={(e, value) => setHue(value)}
-                value={hue}
-                valueLabelDisplay="auto"
-                step={1}
-                marks
-                min={0}
-                max={360}
-              />               
-            </CardContent>
-          </Card>          
-        </Grid>
-        <Grid item>
-          <Card>
-            <CardContent>
-              <Typography gutterBottom>
-                Saturation
-              </Typography>
-              <Slider
-                disabled={!fullColor}
-                onChangeCommitted={slidersChanged}
-                onChange={(e, value) => setSaturation(value)}
-                value={saturation}
-                valueLabelDisplay="auto"
-                step={.01}
-                marks
-                min={0}
-                max={1}
-              />               
-            </CardContent>
-          </Card>
-        </Grid>           
+        </Grid>    
+        { fullColor && (
+          <>
+            <Grid item>
+              <Card>
+                <CardContent>
+                  { toDonut(0, 360, 1, hue, setHue, 'Hue') }                        
+                </CardContent>
+              </Card>          
+            </Grid>
+            <Grid item>
+              <Card>
+                <CardContent>
+                  { toDonut(0, 100, 1, saturation, setSaturation, 'Saturation') }                                     
+                </CardContent>
+              </Card>
+            </Grid>    
+          </>       
+        )}          
       </Grid>    
     </>
   );
